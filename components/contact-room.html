@@ -1,19 +1,22 @@
 <template id="contact-room-template">
-    <contact-textbox></contact-textbox>
-    <contact-conversation>
-        <contact-message user="current">
-            <contact-picture username="Anuar" avatar-src="components/avatar.png"></contact-picture>
-        </contact-message>
-        <contact-message user="current">
-            <contact-picture username="Anuar" avatar-src="components/avatar.png"></contact-picture>
-        </contact-message>
-        <contact-message user="other">
-            <contact-picture username="Juan" avatar-src="components/avatar.png"></contact-picture>
-        </contact-message>
-        <contact-message user="current">
-            <contact-picture username="Anuar" avatar-src="components/avatar.png"></contact-picture>
-        </contact-message>
-    </contact-conversation>
+    <contact-info></contact-info>
+    <div>
+      <contact-textbox></contact-textbox>
+      <contact-conversation>
+          <contact-message user="current">
+              <contact-picture username="Anuar" avatar-src="components/avatar.png"></contact-picture>
+          </contact-message>
+          <contact-message user="current">
+              <contact-picture username="Anuar" avatar-src="components/avatar.png"></contact-picture>
+          </contact-message>
+          <contact-message user="other">
+              <contact-picture username="Juan" avatar-src="components/avatar.png"></contact-picture>
+          </contact-message>
+          <contact-message user="current">
+              <contact-picture username="Anuar" avatar-src="components/avatar.png"></contact-picture>
+          </contact-message>
+      </contact-conversation>
+    </div>
 </template>
 <script>
     (function (customElements) {
