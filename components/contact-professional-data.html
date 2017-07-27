@@ -1,0 +1,27 @@
+<template id="contact-professional-data-template">
+    <h2>Hola, soy professional data</h2>
+</template>
+<script>
+    (function (customElements) {
+        'use strict';
+
+        class ContactProfessionalData extends HTMLElement {
+            constructor() {
+                super();
+                this._initShadowDOM();
+                this._templateToShadowDOM();
+            }
+
+            _initShadowDOM() {
+                this.attachShadow({mode: 'open'});
+            }
+
+            _templateToShadowDOM() {
+                const template = document.currentScript.ownerDocument.querySelector('#contact-professional-data-template').content;
+                this.shadowRoot.appendChild(document.importNode(template, true));
+            }
+        }
+
+        customElements.define('contact-professional-data', ContactProfessionalData);
+    })(window.customElements);
+</script>
