@@ -1,0 +1,39 @@
+<template id="contact-list-template">
+    <style>
+        .container {
+            display: flex;
+            flex-direction: row;
+            border: 1px solid;
+            width: 1000px;
+            justify-content: space-around;
+        }
+    </style>
+    <div class="container">
+        <contact-users></contact-users>
+        <contact-room></contact-room>
+    </div>
+</template>
+<script>
+    (function (customElements) {
+        'use strict';
+
+        class ContactList extends HTMLElement {
+            constructor() {
+                super();
+                this._initShadowDOM();
+                this._templateToShadowDOM();
+            }
+
+            _initShadowDOM() {
+                this.attachShadow({mode: 'open'});
+            }
+
+            _templateToShadowDOM() {
+                const template = document.currentScript.ownerDocument.querySelector('#contact-list-template').content;
+                this.shadowRoot.appendChild(document.importNode(template, true));
+            }
+        }
+
+        customElements.define('contact-list', ContactList);
+    })(window.customElements);
+</script>
