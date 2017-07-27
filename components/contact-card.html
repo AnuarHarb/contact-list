@@ -1,0 +1,37 @@
+<template id="contact-card-template">
+    <style>
+        .container {
+            width: auto;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+        }
+    </style>
+    <div class="container">
+        <slot name="contact-picture"></slot>
+    </div>
+</template>
+<script>
+    (function (customElements) {
+        'use strict';
+
+        class ContactCard extends HTMLElement {
+            constructor() {
+                super();
+                this._initShadowDOM();
+                this._templateToShadowDOM();
+            }
+
+            _initShadowDOM() {
+                this.attachShadow({mode: 'open'});
+            }
+
+            _templateToShadowDOM() {
+                const template = document.currentScript.ownerDocument.querySelector('#contact-card-template').content;
+                this.shadowRoot.appendChild(document.importNode(template, true));
+            }
+        }
+
+        customElements.define('contact-card', ContactCard);
+    })(window.customElements);
+</script>
