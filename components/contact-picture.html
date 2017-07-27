@@ -1,0 +1,108 @@
+<!--
+    <contact-picture username="" avatar-src="avatar.png"></contact-picture>
+-->
+<template id="contact-picture-template">
+    <style>
+        .container {
+            display: inline-block;
+            width: 30%;
+            height: 60px;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .avatar {
+            border-radius: 60%;
+            max-width: 60px;
+            max-height: 60px;
+        }
+
+        .name {
+            display: block;
+            text-align: center;
+            font-family: arial;
+            font-size: 15px;
+            font-weight: bold;
+        }
+    </style>
+    <div class="container">
+        <img class="avatar">
+        <span class="name"></span>
+    </div>
+</template>
+<script>
+    (function (customElements) {
+        'use strict';
+
+        class ContactPicture extends HTMLElement {
+            constructor() {
+                super();
+                this._username = null;
+                this._avatar_src = null;
+                this._initShadowDOM();
+                this._templateToShadowDOM();
+            }
+
+            static get observedAttributes() {
+                return ['avatar-src', 'username'];
+            }
+
+            get username() {
+                return this._username;
+            }
+
+            set username(username) {
+                this.setAttribute('username', username);
+            }
+
+            get avatar_src() {
+                return this._avatar_src;
+            }
+
+            set avatar_src(avatarSource) {
+                this.setAttribute('avatar-src', avatarSource);
+            }
+
+            attributeChangedCallback(name, oldValue, newValue) {
+                switch (name) {
+                    case 'username':
+                        this._username = newValue;
+                        this._changeUsername();
+                        break;
+                    case 'avatar-src':
+                        this._avatar_src = newValue;
+                        this._changePicture();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            connectedCallback() {
+
+            }
+
+            _templateToShadowDOM() {
+                const template = document.currentScript.ownerDocument.querySelector('#contact-picture-template').content;
+                this.shadowRoot.appendChild(document.importNode(template, true));
+            }
+
+            _initShadowDOM() {
+                this.attachShadow({mode: 'open'});
+            }
+
+            _changeUsername() {
+                const username = this.shadowRoot.querySelector('.name');
+                const usernameValue = document.createTextNode(this.username);
+                username.appendChild(usernameValue);
+            }
+
+            _changePicture() {
+                const image = this.shadowRoot.querySelector('.avatar');
+                image.setAttribute('src', this.avatar_src);
+            }
+        }
+
+        customElements.define('contact-picture', ContactPicture);
+    })(window.customElements);
+</script>

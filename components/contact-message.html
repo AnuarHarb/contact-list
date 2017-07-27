@@ -1,41 +1,55 @@
 <template id="message-template">
   <style>
     div {
-      border: 1px solid gray;
+      border: 1px solid #ccc;
       border-radius: 5px;
       background-color: lightgreen;
+      display: inline-block;
+      margin: 10px 0;
       padding: 5px;
-      width: 40%;
+      text-align: left;
+      min-width: 40%;
     }
     p {
       color: black;
       display: inline-block;
       font-family: arial;
       font-size: 13px;
-      margin: 0;
+      font-weight: bold;
+      margin: 10px 0;
+      text-align: left;
+      vertical-align: top;
       width: 60%;
     }
     .current-user {
-      background-color: lightgreen;
+      text-align: left;
+    }
+    .current-user div {
+      background-color: #d6f9ff;
     }
     .other-user {
-      background-color: #ededed;
+      text-align: right;
+    }
+    .other-user div {
+      background-color: #efefef;
     }
     div ::slotted(div) {
       display: inline-block;
       width: 30%;
     }
   </style>
-  <div>
-    <slot></slot>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod debitis doloremque tenetur sed reiciendis animi asperiores. Est modi magnam quae facilis ratione ex voluptatibus iste temporibus a, repellat deserunt velit!</p>
-  </div>
+  <article class="message">
+    <div>
+      <slot></slot>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. lorem</p>
+    </div>
+  </article>
 </template>
 <script>
   (function(customElements) {
     'use strict';
 
-    class contactMessage extends HTMLElement {
+    class ContactMessage extends HTMLElement {
       constructor() {
         super();
         this.user = "current";
@@ -57,10 +71,9 @@
       }
 
       attributeChangedCallback(attrName, oldVal, newVal) {
-        console.log(`attributeChangedCallback called. attrName: ${attrName}; oldVal: ${oldVal}; newVal: ${newVal}`)
-        this.shadowRoot.querySelector('div').setAttribute('class', newVal + '-user')
+        this.shadowRoot.querySelector('.message').setAttribute('class', newVal + '-user')
       }
     }
-    customElements.define('contact-message', contactMessage);
+    customElements.define('contact-message', ContactMessage);
   })(window.customElements)
 </script>
