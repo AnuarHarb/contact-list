@@ -1,0 +1,40 @@
+<template id="contact-room-template">
+    <contact-conversation>
+        <contact-message user="current">
+            <contact-picture username="Anuar" avatar-src="components/avatar.png"></contact-picture>
+        </contact-message>
+        <contact-message user="current">
+            <contact-picture username="Anuar" avatar-src="components/avatar.png"></contact-picture>
+        </contact-message>
+        <contact-message user="other">
+            <contact-picture username="Juan" avatar-src="components/avatar.png"></contact-picture>
+        </contact-message>
+        <contact-message user="current">
+            <contact-picture username="Anuar" avatar-src="components/avatar.png"></contact-picture>
+        </contact-message>
+    </contact-conversation>
+</template>
+<script>
+    (function (customElements) {
+        'use strict';
+
+        class ContactRoom extends HTMLElement {
+            constructor() {
+                super();
+                this._initShadowDOM();
+                this._templateToShadowDOM();
+            }
+
+            _initShadowDOM() {
+                this.attachShadow({mode: 'open'});
+            }
+
+            _templateToShadowDOM() {
+                const template = document.currentScript.ownerDocument.querySelector('#contact-room-template').content;
+                this.shadowRoot.appendChild(document.importNode(template, true));
+            }
+        }
+
+        customElements.define('contact-room', ContactRoom);
+    })(window.customElements);
+</script>
