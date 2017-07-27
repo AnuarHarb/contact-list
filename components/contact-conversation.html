@@ -3,12 +3,11 @@
     .conversation {
       border: 1px solid #ccc;
       border-radius: 5px;
-      display: inline-block;
       height: 400px;
       padding: 10px;
       overflow-y: scroll;
       vertical-align: top;
-      width: 67%;
+      width: 765px;
     }
   </style>
   <section class="conversation">
@@ -16,19 +15,26 @@
   </section>
 </template>
 <script>
-  (function(customElements) {
-    'use strict';
+    (function (customElements) {
+        'use strict';
 
-    class ContactConversation extends HTMLElement {
-      constructor() {
-        super();
+        class ContactConversation extends HTMLElement {
+            constructor() {
+                super();
+                this._initShadowDOM();
+                this._templateToShadowDOM();
+            }
 
-        const shadowRoot = this.attachShadow({mode: 'open'});
-        const templ = document.currentScript.ownerDocument.querySelector('#contact-conversation-template');
-        shadowRoot.appendChild(document.importNode(templ.content, true));
-      }
+            _initShadowDOM() {
+                this.attachShadow({mode: 'open'});
+            }
 
-    }
-    customElements.define('contact-conversation', ContactConversation);
-  })(window.customElements)
+            _templateToShadowDOM() {
+                const template = document.currentScript.ownerDocument.querySelector('#contact-conversation-template').content;
+                this.shadowRoot.appendChild(document.importNode(template, true));
+            }
+        }
+
+        customElements.define('contact-conversation', ContactConversation);
+    })(window.customElements);
 </script>

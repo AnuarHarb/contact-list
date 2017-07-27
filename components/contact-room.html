@@ -1,21 +1,27 @@
 <template id="contact-room-template">
+    <style>
+        .container {
+            display: flex;
+            width: 100%;
+        }
+    </style>
     <contact-info></contact-info>
-    <div>
-      <contact-textbox></contact-textbox>
-      <contact-conversation>
-          <contact-message user="current">
-              <contact-picture username="Anuar" avatar-src="components/avatar.png"></contact-picture>
-          </contact-message>
-          <contact-message user="current">
-              <contact-picture username="Anuar" avatar-src="components/avatar.png"></contact-picture>
-          </contact-message>
-          <contact-message user="other">
-              <contact-picture username="Juan" avatar-src="components/avatar.png"></contact-picture>
-          </contact-message>
-          <contact-message user="current">
-              <contact-picture username="Anuar" avatar-src="components/avatar.png"></contact-picture>
-          </contact-message>
-      </contact-conversation>
+    <div class="container">
+        <contact-textbox></contact-textbox>
+        <contact-conversation>
+            <contact-message user="current">
+                <contact-picture username="Anuar" avatar-src="components/avatar.png"></contact-picture>
+            </contact-message>
+            <contact-message user="current">
+                <contact-picture username="Anuar" avatar-src="components/avatar.png"></contact-picture>
+            </contact-message>
+            <contact-message user="other">
+                <contact-picture username="Juan" avatar-src="components/avatar.png"></contact-picture>
+            </contact-message>
+            <contact-message user="current">
+                <contact-picture username="Anuar" avatar-src="components/avatar.png"></contact-picture>
+            </contact-message>
+        </contact-conversation>
     </div>
 </template>
 <script>

@@ -1,6 +1,6 @@
 <template id="contact-textbox-template">
   <style>
-    section {
+    .container {
       border: 2px solid #ccc;
       border-radius: 5px;
       background-color: #ccc;
@@ -8,15 +8,14 @@
       height: 410px;
       padding: 5px;
       vertical-align: top;
-      width: 250px;
+      width: 400px;
     }
     textarea {
       border-radius: 5px;
       font-size: 20px;
       height: 330px;
       padding: 10px;
-      width: 230px;
-
+      width: 375px;
     }
     button {
       background: linear-gradient(#14a001, #2f7f05);
@@ -30,26 +29,32 @@
       width: 100%;
     }
   </style>
-  <section>
+  <div class="container">
     <textarea name="name" rows="8" cols="80"></textarea>
     <button>Send</button>
-  </section>
+  </div>
 </template>
 <script>
-  (function(customElements) {
-    'use strict';
+    (function (customElements) {
+        'use strict';
 
-    class ContactTextbox extends HTMLElement {
+        class ContactTextBox extends HTMLElement {
+            constructor() {
+                super();
+                this._initShadowDOM();
+                this._templateToShadowDOM();
+            }
 
-      constructor() {
-        super();
+            _initShadowDOM() {
+                this.attachShadow({mode: 'open'});
+            }
 
-        const shadowRoot = this.attachShadow({mode: 'open'});
-        const templ = document.currentScript.ownerDocument.querySelector('#contact-textbox-template');
-        shadowRoot.appendChild(document.importNode(templ.content, true));
-      }
+            _templateToShadowDOM() {
+                const template = document.currentScript.ownerDocument.querySelector('#contact-textbox-template').content;
+                this.shadowRoot.appendChild(document.importNode(template, true));
+            }
+        }
 
-    }
-    customElements.define('contact-textbox', ContactTextbox)
-  })(window.customElements)
+        customElements.define('contact-textbox', ContactTextBox);
+    })(window.customElements);
 </script>
