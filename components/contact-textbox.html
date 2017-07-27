@@ -1,4 +1,4 @@
-<template id="textbox-template">
+<template id="contact-textbox-template">
   <style>
     section {
       border: 2px solid #ccc;
@@ -45,7 +45,7 @@
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'});
-        const templ = document.currentScript.ownerDocument.querySelector('#textbox-template');
+        const templ = document.currentScript.ownerDocument.querySelector('#contact-textbox-template');
         shadowRoot.appendChild(document.importNode(templ.content, true));
       }
 

@@ -1,4 +1,4 @@
-<template id="message-template">
+<template id="contact-message-template">
   <style>
     div {
       border: 1px solid #ccc;
@@ -55,7 +55,7 @@
         this.user = "current";
 
         const shadowRoot = this.attachShadow({mode: 'open'});
-        const templ = document.currentScript.ownerDocument.querySelector('#message-template');
+        const templ = document.currentScript.ownerDocument.querySelector('#contact-message-template');
         shadowRoot.appendChild(document.importNode(templ.content, true));
       }
 
