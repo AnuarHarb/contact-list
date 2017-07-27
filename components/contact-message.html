@@ -1,0 +1,79 @@
+<template id="message-template">
+  <style>
+    div {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: lightgreen;
+      display: inline-block;
+      margin: 10px 0;
+      padding: 5px;
+      text-align: left;
+      min-width: 40%;
+    }
+    p {
+      color: black;
+      display: inline-block;
+      font-family: arial;
+      font-size: 13px;
+      font-weight: bold;
+      margin: 10px 0;
+      text-align: left;
+      vertical-align: top;
+      width: 60%;
+    }
+    .current-user {
+      text-align: left;
+    }
+    .current-user div {
+      background-color: #d6f9ff;
+    }
+    .other-user {
+      text-align: right;
+    }
+    .other-user div {
+      background-color: #efefef;
+    }
+    div ::slotted(div) {
+      display: inline-block;
+      width: 30%;
+    }
+  </style>
+  <article class="message">
+    <div>
+      <slot></slot>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. lorem</p>
+    </div>
+  </article>
+</template>
+<script>
+  (function(customElements) {
+    'use strict';
+
+    class ContactMessage extends HTMLElement {
+      constructor() {
+        super();
+        this.user = "current";
+
+        const shadowRoot = this.attachShadow({mode: 'open'});
+        const templ = document.currentScript.ownerDocument.querySelector('#message-template');
+        shadowRoot.appendChild(document.importNode(templ.content, true));
+      }
+
+      // Watch an attribute
+      static get observedAttributes() {
+        return ['user'];
+      }
+      get user() {
+        return this.user;
+      }
+      set user(user) {
+        this.setAttribute("user", user);
+      }
+
+      attributeChangedCallback(attrName, oldVal, newVal) {
+        this.shadowRoot.querySelector('.message').setAttribute('class', newVal + '-user')
+      }
+    }
+    customElements.define('contact-message', ContactMessage);
+  })(window.customElements)
+</script>

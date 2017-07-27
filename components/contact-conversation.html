@@ -1,0 +1,32 @@
+<template id="conversation-template">
+  <style>
+    .conversation {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      height: 400px;
+      padding: 10px;
+      overflow-y: scroll;
+      width: 60%;
+    }
+  </style>
+  <section class="conversation">
+    <slot></slot>
+  </section>
+</template>
+<script>
+  (function(customElements) {
+    'use strict';
+
+    class ContactConversation extends HTMLElement {
+      constructor() {
+        super();
+
+        const shadowRoot = this.attachShadow({mode: 'open'});
+        const templ = document.currentScript.ownerDocument.querySelector('#conversation-template');
+        shadowRoot.appendChild(document.importNode(templ.content, true));
+      }
+
+    }
+    customElements.define('contact-conversation', ContactConversation);
+  })(window.customElements)
+</script>
