@@ -1,11 +1,13 @@
-<template id="conversation-template">
+<template id="contact-conversation-template">
   <style>
     .conversation {
       border: 1px solid #ccc;
       border-radius: 5px;
+      display: inline-block;
       height: 400px;
       padding: 10px;
       overflow-y: scroll;
+      vertical-align: top;
       width: 60%;
     }
   </style>
@@ -22,7 +24,7 @@
         super();
 
         const shadowRoot = this.attachShadow({mode: 'open'});
-        const templ = document.currentScript.ownerDocument.querySelector('#conversation-template');
+        const templ = document.currentScript.ownerDocument.querySelector('#contact-conversation-template');
         shadowRoot.appendChild(document.importNode(templ.content, true));
       }
 

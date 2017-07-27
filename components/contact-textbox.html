@@ -1,0 +1,55 @@
+<template id="contact-textbox-template">
+  <style>
+    section {
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      background-color: #ccc;
+      display: inline-block;
+      height: 410px;
+      padding: 5px;
+      vertical-align: top;
+      width: 250px;
+    }
+    textarea {
+      border-radius: 5px;
+      font-size: 20px;
+      height: 330px;
+      padding: 10px;
+      width: 230px;
+
+    }
+    button {
+      background: linear-gradient(#14a001, #2f7f05);
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      margin: 10px 0;
+      padding: 10px 0;
+      width: 100%;
+    }
+  </style>
+  <section>
+    <textarea name="name" rows="8" cols="80"></textarea>
+    <button>Send</button>
+  </section>
+</template>
+<script>
+  (function(customElements) {
+    'use strict';
+
+    class ContactTextbox extends HTMLElement {
+
+      constructor() {
+        super();
+
+        const shadowRoot = this.attachShadow({mode: 'open'});
+        const templ = document.currentScript.ownerDocument.querySelector('#contact-textbox-template');
+        shadowRoot.appendChild(document.importNode(templ.content, true));
+      }
+
+    }
+    customElements.define('contact-textbox', ContactTextbox)
+  })(window.customElements)
+</script>
