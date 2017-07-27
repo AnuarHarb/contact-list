@@ -2,12 +2,15 @@
     <style>
         .container {
             display: flex;
+            justify-content: space-around;
         }
     </style>
     <div class="container">
         <contact-card user-id="1">
             <contact-picture username="malforime" avatar-src="components/avatar.png"
                              slot="contact-picture"></contact-picture>
+            <contact-professional-data></contact-professional-data>
+            <contact-personal-data></contact-personal-data>
         </contact-card>
     </div>
 </template>
@@ -34,4 +37,4 @@
 
         customElements.define('contact-users', ContactUsers);
     })(window.customElements);
-</script>
+</script>s

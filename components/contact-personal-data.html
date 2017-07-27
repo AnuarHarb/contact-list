@@ -1,0 +1,27 @@
+<template id="contact-personal-data-template">
+    <h2>Hola, soy personal data</h2>
+</template>
+<script>
+    (function (customElements) {
+        'use strict';
+
+        class ContactPersonalData extends HTMLElement {
+            constructor() {
+                super();
+                this._initShadowDOM();
+                this._templateToShadowDOM();
+            }
+
+            _initShadowDOM() {
+                this.attachShadow({mode: 'open'});
+            }
+
+            _templateToShadowDOM() {
+                const template = document.currentScript.ownerDocument.querySelector('#contact-personal-data-template').content;
+                this.shadowRoot.appendChild(document.importNode(template, true));
+            }
+        }
+
+        customElements.define('contact-personal-data', ContactPersonalData);
+    })(window.customElements);
+</script>
