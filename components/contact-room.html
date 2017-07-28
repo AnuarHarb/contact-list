@@ -29,17 +29,100 @@
         'use strict';
 
         class ContactRoom extends HTMLElement {
+
+            static get observedAttributes() {
+                return ['username', 'image', 'job', 'skills', 'phone', 'email'];
+            }
+
             constructor() {
                 super();
                 this._initShadowDOM();
-                this._templateToShadowDOM();
+                this._username = null;
+                this._image = null;
+                this._job = null;
+                this._skills = null;
+                this._phone = null;
+                this._email = null;
+            }
+
+            get username() {
+                return this._username;
+            }
+
+            set username(username) {
+                this.shadowRoot.querySelector('contact-info').setAttribute('username', username);
+                this.shadowRoot.querySelector('contact-conversation').setAttribute('username', username);
+            }
+
+            get image() {
+                return this._image;
+            }
+
+            set image(image) {
+                this.shadowRoot.querySelector('contact-info').setAttribute('image', image);
+                this.shadowRoot.querySelector('contact-conversation').setAttribute('image', image);
+            }
+
+            get job() {
+                return this._job;
+            }
+
+            set job(job) {
+                this.shadowRoot.querySelector('contact-info').setAttribute('job', job);
+                this.shadowRoot.querySelector('contact-conversation').setAttribute('job', job);
+            }
+
+            get skills() {
+                return this._skills;
+            }
+
+            set skills(skills) {
+                this.shadowRoot.querySelector('contact-info').setAttribute('skills', skills);
+                this.shadowRoot.querySelector('contact-conversation').setAttribute('skills', skills);
+            }
+
+            get phone() {
+                return this._phone;
+            }
+
+            set phone(phone) {
+                this.shadowRoot.querySelector('contact-info').setAttribute('phone', phone);
+                this.shadowRoot.querySelector('contact-conversation').setAttribute('phone', phone);
+            }
+
+            get email() {
+                return this._email;
+            }
+
+            set email(email) {
+                this.shadowRoot.querySelector('contact-info').setAttribute('email', email);
+                this.shadowRoot.querySelector('contact-conversation').setAttribute('email', email);
+            }
+
+            attributeChangedCallback(name, oldVal, newVal) {
+                if (name === 'username') {
+                    this.username = newVal;
+                }
+                if (name === 'image') {
+                    this.image = newVal;
+                }
+                if (name === 'job') {
+                    this.job = newVal;
+                }
+                if (name === 'skills') {
+                    this.skills = newVal;
+                }
+                if (name === 'phone') {
+                    this.phone = newVal;
+                }
+                if (name === 'email') {
+                    this.email = newVal;
+                }
+
             }
 
             _initShadowDOM() {
                 this.attachShadow({mode: 'open'});
-            }
-
-            _templateToShadowDOM() {
                 const template = document.currentScript.ownerDocument.querySelector('#contact-room-template').content;
                 this.shadowRoot.appendChild(document.importNode(template, true));
             }

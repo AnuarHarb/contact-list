@@ -63,13 +63,13 @@
 
             attributeChangedCallback(name, oldValue, newValue) {
                 switch (name) {
-                    case 'username':
-                        this._username = newValue;
-                        this._changeUsername();
-                        break;
                     case 'avatar-src':
                         this._avatar_src = newValue;
                         this._changePicture();
+                        break;
+                    case 'username':
+                        this._username = newValue;
+                        this._changeUsername();
                         break;
                     default:
                         break;
@@ -90,14 +90,14 @@
             }
 
             _changeUsername() {
-                const username = this.shadowRoot.querySelector('.name');
-                const usernameValue = document.createTextNode(this.username);
-                username.appendChild(usernameValue);
+                const parent = this.shadowRoot.querySelector('.container');
+                parent.innerHTML = '';
+                parent.innerHTML += `<span class="name">${this.username}</span>`;
             }
 
             _changePicture() {
-                const image = this.shadowRoot.querySelector('.avatar');
-                image.setAttribute('src', this.avatar_src);
+                let parent = this.shadowRoot.querySelector('.container');
+                parent.innerHTML += `<img src="${this.avatar_src}" class="avatar">`;
             }
         }
 

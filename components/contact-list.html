@@ -8,12 +8,12 @@
         }
 
         contact-users {
-            width: 10%;
+            width: 15%;
             height: 100px;
         }
 
         contact-room {
-            width: 90%;
+            width: 85%;
         }
     </style>
     <div class="container">
@@ -30,6 +30,19 @@
                 super();
                 this._initShadowDOM();
                 this._templateToShadowDOM();
+            }
+
+            connectedCallback() {
+                const users = this.shadowRoot.querySelector('contact-users');
+                users.addEventListener('contact-picture-clicked', (event) => {
+                    const room = this.shadowRoot.querySelector('contact-room');
+                    room.setAttribute('username', event.detail.user._username);
+                    room.setAttribute('image', event.detail.user._image);
+                    room.setAttribute('job', event.detail.user._professional._job_title);
+                    room.setAttribute('skills', event.detail.user._professional._skills);
+                    room.setAttribute('phone', event.detail.user._personal._phone);
+                    room.setAttribute('email', event.detail.user._personal._email);
+                });
             }
 
             _initShadowDOM() {

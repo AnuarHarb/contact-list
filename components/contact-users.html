@@ -3,48 +3,112 @@
         .container {
             display: flex;
             justify-content: space-around;
-            padding-top: 100px;
+            padding-top: 160px;
             border: 1px solid;
             border-radius: 5px;
             flex-direction: column;
             overflow-y: scroll;
-            height: 500px;
+            height: 400px;
         }
     </style>
     <div class="container">
-        <contact-picture username="malforime" avatar-src="components/avatar.png"
-                         slot="contact-picture"></contact-picture>
-        <contact-picture username="malforime" avatar-src="components/avatar.png"
-                         slot="contact-picture"></contact-picture>
-        <contact-picture username="malforime" avatar-src="components/avatar.png"
-                         slot="contact-picture"></contact-picture>
-        <contact-picture username="malforime" avatar-src="components/avatar.png"
-                         slot="contact-picture"></contact-picture>
-        <contact-picture username="malforime" avatar-src="components/avatar.png"
-                         slot="contact-picture"></contact-picture>
+
     </div>
 </template>
 <script>
     (function (customElements) {
         'use strict';
 
+        class User {
+            constructor() {
+                this._id = null;
+                this._username = null;
+                this._image = null;
+                this._professional = {};
+                this._professional._job_title = null;
+                this._professional._skills = null;
+                this._personal = {};
+                this._personal._phone = null;
+                this._personal._email = null;
+            }
+        }
+
         class ContactUsers extends HTMLElement {
             constructor() {
                 super();
+                this.users = [];
                 this._initShadowDOM();
-                this._templateToShadowDOM();
+            }
+
+            connectedCallback() {
+                this._initUsers();
+            }
+
+            disconnectedCallback() {
+
+            }
+
+            _initUsers() {
+                fetch('https://randomuser.me/api/?results=10')
+                    .then(request => {
+                        return request.json();
+                    })
+                    .then(data => {
+                        const containerParent = this.shadowRoot.querySelector('.container');
+                        data.results.forEach(result => {
+                            /**
+                             * @description Add the users in the array
+                             * @type {Element}
+                             */
+                            let newUser = new User();
+                            newUser._id = this.users.length;
+                            newUser._username = result.login.username;
+                            newUser._image = result.picture.thumbnail;
+                            newUser._personal._phone = result.cell;
+                            newUser._personal._email = result.email;
+                            newUser._professional._job_title = 'Frontend Developer';
+                            newUser._professional._skills = 'Polymer with Web Componentss';
+                            this.users.push(newUser);
+
+                            /**
+                             * @description Add the contact-cards in the column
+                             * @type {Element}
+                             */
+                            const containerPicture = document.createElement('contact-picture');
+                            containerPicture.setAttribute('username', newUser._username);
+                            containerPicture.setAttribute('avatar-src', newUser._image);
+                            containerPicture.setAttribute('slot', 'contact-picture');
+                            containerParent.appendChild(containerPicture);
+
+                            /**
+                             * @description Add the listener event
+                             */
+                            containerPicture.addEventListener('click', () => {
+                                const event = new CustomEvent('contact-picture-clicked', {
+                                    bubbles: true,
+                                    composed: true,
+                                    detail: {
+                                        user: newUser
+                                    }
+                                });
+                                this.dispatchEvent(event);
+                            });
+                        });
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        toastr.warning('No se pudo cargar los usuarios bloqueados', 'Servidor remoto');
+                    });
             }
 
             _initShadowDOM() {
                 this.attachShadow({mode: 'open'});
-            }
-
-            _templateToShadowDOM() {
                 const template = document.currentScript.ownerDocument.querySelector('#contact-users-template').content;
                 this.shadowRoot.appendChild(document.importNode(template, true));
             }
         }
 
         customElements.define('contact-users', ContactUsers);
+
     })(window.customElements);
 </script>s
