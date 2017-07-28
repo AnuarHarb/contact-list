@@ -12,14 +12,8 @@
             <contact-message user="current">
                 <contact-picture username="Anuar" avatar-src="components/avatar.png"></contact-picture>
             </contact-message>
-            <contact-message user="current">
-                <contact-picture username="Anuar" avatar-src="components/avatar.png"></contact-picture>
-            </contact-message>
             <contact-message user="other">
                 <contact-picture username="Juan" avatar-src="components/avatar.png"></contact-picture>
-            </contact-message>
-            <contact-message user="current">
-                <contact-picture username="Anuar" avatar-src="components/avatar.png"></contact-picture>
             </contact-message>
         </contact-conversation>
     </div>
@@ -27,6 +21,15 @@
 <script>
     (function (customElements) {
         'use strict';
+
+        class Message {
+            constructor() {
+                this.content = null;
+                this.user
+            }
+
+
+        }
 
         class ContactRoom extends HTMLElement {
 
@@ -37,6 +40,7 @@
             constructor() {
                 super();
                 this._initShadowDOM();
+                this.messages = [];
                 this._username = null;
                 this._image = null;
                 this._job = null;
